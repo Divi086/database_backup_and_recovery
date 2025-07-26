@@ -1,0 +1,36 @@
+PRAGMA foreign_keys = OFF;
+
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS employees_backup;
+
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(50)
+);
+
+INSERT INTO employees VALUES (1, 'Alice', 'HR');
+INSERT INTO employees VALUES (2, 'Bob', 'IT');
+INSERT INTO employees VALUES (3, 'Charlie', 'Sales');
+
+SELECT 'Original employees table:' AS Info;
+SELECT * FROM employees;
+
+CREATE TABLE employees_backup AS
+SELECT * FROM employees;
+
+SELECT 'Backup table (employees_backup):' AS Info;
+SELECT * FROM employees_backup;
+
+DELETE FROM employees;
+
+SELECT 'Employees table after deletion:' AS Info;
+SELECT * FROM employees;
+
+INSERT INTO employees
+SELECT * FROM employees_backup;
+
+SELECT 'Employees table after restore:' AS Info;
+SELECT * FROM employees;
+
+PRAGMA foreign_keys = ON;
